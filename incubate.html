@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <style>
+        @import url("css/return.css");
+        @import url("css/interlinkage.css");
+        @import url("css/main/oviposition.css");
+        #ovipositionTips {
+            text-align: center;
+            margin: 10px auto;
+            width: 100%;
+        }
+        body {
+            font-size: 18px;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>产卵 - 大兵蚁传奇</title> 
+    <script src="script/include.js"></script>
+    
+    <script>
+        const level = ["普通", "罕见", "稀有", "史诗", "传奇", "神话", "究极", "超级", "唯一"];
+        const levelColor = [
+            "rgb(126, 239, 109)",
+            "rgb(255, 231, 93)",
+            "rgb(77, 82, 227)",
+            "rgb(133, 31, 222)",
+            "rgb(222, 31, 31)",
+            "rgb(31, 219, 222)",
+            "rgb(255, 43, 117)",
+            "rgb(43, 255, 163)",
+            "rgb(85, 85, 85)",
+        ];
+    </script>
+</head>
+<body>
+    <a href="main.html"><button class="return-button">
+        <span class="button-text">返回</span>
+    </button></a>
+    <h1 style="color: #ff9a9e;">孵卵</h1>
+    <div id="incubateButton">
+        <button onclick="incubate()" class="oviposition-button">孵普通蚁卵</button>
+    </div>
+    <div id="incubateChoose"></div>
+    <div id="incubationQueue" style="margin-top: 20px; text-align: center;">
+    <script>
+        const currentUser = localStorage.getItem('currentUser') || 'default';
+let incubationQueue = JSON.parse(localStorage.getItem(`incubationQueue_${currentUser}`) || '[]');
+        
+        // 恢复队列时更新剩余时间
+        const currentTime = Date.now();
+        incubationQueue = incubationQueue.map(item => {
+            const elapsed = currentTime - item.startTime;
+            return {
+                ...item,
+                startTime: currentTime - (item.duration - Math.max(0, item.duration - elapsed))
+            };
+        });
+        updateIncubationQueue();
+        
+        function incubate() {
+            document.getElementById("incubateButton").innerHTML = "";
+            var userJson = loadGameDataLocally();
+            var incubateChooseString = "";
+            var flag = true;
+            for(var i = 0; i < 9; i++){
+                if(userJson.antsommanedEggNum[i] > 0){
+                    incubateChooseString += "<div style=\"text-align: center;\">\n";
+                    incubateChooseString += "<p style=\"color: " + levelColor[i] + ";\">" + String(level[i]) + ":" + String(userJson.antsommanedEggNum[i]) + "&nbsp";
+                    incubateChooseString += "<button onclick=\"incubateLevel(" + String(i) + ")\" class=\"oviposition-button\"  style=\"display: inline-block;\">孵化</button><br></p>";
+                    incubateChooseString += "</div>";
+                    flag = false;
+                }
+            }
+            if(flag == true){
+                incubateTips("<div style=\"text-align: center;\">\n您没有可孵化的蚂蚁卵！</div>");
+                return;
+            }
+            document.getElementById("incubateChoose").innerHTML = incubateChooseString;
+            updateIncubationQueue();
+        }
+        function incubateTips(tips){
+            document.getElementById("incubateChoose").innerHTML = tips;
+            setTimeout(() => {
+                document.getElementById("incubateChoose").innerHTML = "";
+                document.getElementById("incubateChoose").innerHTML = "<div id=\"incubateButton\"><button onclick=\"incubate()\" class=\"oviposition-button\">孵卵</button></div>";
+            }, 2500);
+        }
+        function incubateLevel(level){
+            var userJson = loadGameDataLocally();
+            userJson.antsommanedEggNum[level]--;
+            saveGameDataLocally(userJson);
+            var durationTime = 1000;
+            for(var i = 0; i < level; i++){
+                durationTime *= 5;
+            }
+            incubationQueue.push({
+                level: level,
+                startTime: Date.now(),
+                duration:  durationTime // 孵化时间随等级增加
+            });
+            localStorage.setItem(`incubationQueue_${currentUser}`, JSON.stringify(incubationQueue));
+            updateIncubationQueue();
+            incubate();
+        }
+        
+        function updateIncubationQueue() {
+            let queueHTML = "<h3>孵化队列</h3>";
+            
+            for(let i = 0; i < incubationQueue.length; i++) {
+                const item = incubationQueue[i];
+                const elapsed = Date.now() - item.startTime;
+                const remaining = Math.max(0, item.duration - elapsed);
+                
+                if(remaining > 0) {
+                    queueHTML += `<div style="margin: 10px 0;">
+                        <p style="color: ${levelColor[item.level]};">${level[item.level]}蚁卵</p>
+                        <p>剩余时间: ${Math.ceil(remaining/1000)}秒</p>
+                        <progress value="${elapsed}" max="${item.duration}"></progress>
+                    </div>`;
+                } else {
+                    // 孵化完成
+                    queueHTML += `<div style="margin: 10px 0;">
+                        <p style="color: ${levelColor[item.level]};">${level[item.level]}蚁卵 孵化完成!</p>
+                        <button onclick="removeFromQueue(${i})">领取</button>
+                    </div>`;
+                }
+            }
+            
+            document.getElementById("incubationQueue").innerHTML = queueHTML;
+            
+            if(incubationQueue.length > 0) {
+                setTimeout(updateIncubationQueue, 1000);
+            }
+        }
+        
+        function removeFromQueue(index) {
+            // 检查索引是否有效
+            if (index < 0 || index >= incubationQueue.length) {
+                return;
+            }
+            const item = incubationQueue[index];
+            
+            // 更新游戏数据 - 增加对应等级的蚂蚁数量
+            const userJson = loadGameDataLocally();
+            if(userJson && userJson.hasAnts && userJson.hasAnts[2] && userJson.hasAnts[2][item.level] !== undefined) {
+                userJson.hasAnts[2][item.level]++; // 增加对应等级的蚂蚁
+                saveGameDataLocally(userJson);
+            }
+            
+            incubationQueue.splice(index, 1);
+            localStorage.setItem('incubationQueue', JSON.stringify(incubationQueue));
+            updateIncubationQueue();
+            alert("已获得" + String(level[item.level]) + "级黄幼蚁");
+        }
+    </script>
+</body>
+</html>

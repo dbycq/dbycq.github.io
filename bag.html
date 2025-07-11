@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <style>
+        @import url("css/return.css");
+        @import url("css/interlinkage.css");
+        #bag img {
+            margin: 10px;
+            padding: 5px;
+        }
+        #bag p {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+    </style>
+    <meta charset="utf-8"> 
+    <title>背包 - 大兵蚁传奇</title> 
+    <script src="script/include.js"></script>
+    <script>
+        const level = ["普通", "罕见", "稀有", "史诗", "传奇", "神话", "究极", "超级", "唯一"];
+        const levelColor = [
+            "rgb(126, 239, 109)",
+            "rgb(255, 231, 93)",
+            "rgb(77, 82, 227)",
+            "rgb(133, 31, 222)",
+            "rgb(222, 31, 31)",
+            "rgb(31, 219, 222)",
+            "rgb(255, 43, 117)",
+            "rgb(43, 255, 163)",
+            "rgb(85, 85, 85)",
+        ];
+    </script>
+    <!--<script src="ants_data.json"></script>-->
+</head>
+<body>
+    <a href="main.html"><button class="return-button">
+        <span class="button-text">返回</span>
+    </button></a>
+    <h1>背包</h1>
+    <div id="bag"></div>
+    <script>
+        const bag = document.getElementById("bag");
+        const userJson = loadGameDataLocally();
+        
+        // 使用fetch加载JSON文件
+        let ants = {};
+        fetch('ants_data.json')
+            .then(response => response.json())
+            .then(data => {
+                ants = data;
+                renderBagContents(ants, userJson);
+            })
+            .catch(error => console.error('Error loading ants data:', error));
+            
+        function renderBagContents(ants, userJson) {
+            var bagString = "";
+        var bagString = "<p>";
+        var num = 0;
+        for(var j = 0; j < 9; j++){
+            for(var i = 0; i < Object.keys(ants.ants).length; i++){
+                if(userJson.hasAnts[i][j] > 0){
+                    if(userJson.hasAnts[i][j] == 1){
+                        const antType = Object.keys(ants.ants)[i];
+                        const antLevel = level[j];
+                        if(ants.ants[antType] && ants.ants[antType][antLevel] && ants.ants[antType][antLevel].image) {
+                            bagString += `<img src="${ants.ants[antType][antLevel].image}" alt="${antType} ${antLevel}"  width="50" height="50">`;
+                        }
+                        num++;
+                    }
+                    else{
+                        const antType = Object.keys(ants.ants)[i];
+                        const antLevel = level[j];
+                        if(ants.ants[antType] && ants.ants[antType][antLevel] && ants.ants[antType][antLevel].image) {
+                            bagString += `<img src="${ants.ants[antType][antLevel].image}" alt="${antType} ${antLevel}"  width="50" height="50">x${userJson.hasAnts[i][j]}`;
+                        }
+                        num += 2;
+                    }
+                }
+                if(num % 20 == 0) bagString += '<br>';
+            }
+        }
+        console.log(bagString);
+        bagString += "</p>";
+        bag.innerHTML = bagString;
+    }
+    </script>
+</body>
+</html>
