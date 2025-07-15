@@ -1,0 +1,15 @@
+.main-title {
+    font-size: 2.8rem;
+    color: #2c3e50; /* 深蓝灰色 */
+    position: relative;
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .main-title::after {
+    content: "🐜"; /* 蚂蚁emoji装饰 */
+    position: absolute;
+    right: -30px;
+    top: -10px;
+    font-size: 1.5rem;
+  }
