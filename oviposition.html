@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <style>
+        @import url("css/return.css");
+        @import url("css/interlinkage.css");
+        @import url("css/main/oviposition.css");
+        #ovipositionTips {
+            text-align: center;
+            margin: 10px auto;
+            width: 100%;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>产卵 - 大兵蚁传奇</title> 
+    <script src="script/include.js"></script>
+    <script src="script/global.js"></script>
+</head>
+<body>
+    <a href="main.html"><button class="return-button">
+        <span class="button-text">返回</span>
+    </button></a>
+    <h1 style="color: #ff9a9e;">产卵</h1>
+    <p>我的蚁后：</p>
+    <img id="queenAntImage">
+    <script>
+        var userJson = loadGameDataLocally();
+        var useQueenAntSrc = "";
+        var useQueenAntAlt = "";
+        fetch('ants_data.json')
+            .then(response => response.json())
+            .then(data => {
+                ants = data;
+                const antType = userJson.useQueenAnt;
+                const antLevel = level[userJson.useQueenAntLevel];
+                if(ants.ants[antType] && ants.ants[antType][antLevel]) {
+                    useQueenAntAlt = antLevel + ants.ants[antType][antLevel].type;
+                    useQueenAntSrc = ants.ants[antType][antLevel].image;
+                }
+                console.log(useQueenAntSrc);
+                if(ants.ants[antType] && ants.ants[antType]["普通"]) {
+                    console.log(ants.ants[antType]["普通"].type);
+                }
+                document.getElementById('queenAntImage').src = useQueenAntSrc;
+                document.getElementById('queenAntImage').alt = useQueenAntAlt;
+                document.getElementById('queenAntImage').width="200";
+                document.getElementById('queenAntImage').height="200";
+            })
+            .catch(error => console.error('Error loading ants data:', error));
+        
+    </script>
+    <br>
+    <button class="oviposition-button" onclick="oviposition()">
+        产卵
+    </button>
+    <script>
+        function oviposition() {
+            var userJson = loadGameDataLocally();
+            if(Date.now() - userJson.lastOvipositionTime < 1000){//5秒
+                ovipositionTips("还在冷却");
+                return; 
+            }
+            if(!userJson.antsommanedEggNum) {
+                userJson.antsommanedEggNum = {};
+            }
+            if(!userJson.antsommanedEggNum[userJson.useQueenAntLevel]) {
+                userJson.antsommanedEggNum[userJson.useQueenAntLevel] = 0;
+            }
+            userJson.antsommanedEggNum[userJson.useQueenAntLevel]++;
+            userJson.lastOvipositionTime = Date.now();
+            saveGameDataLocally(userJson);
+            console.log("普通蚁卵：" + String(userJson.antsommanedEggNum[userJson.useQueenAntLevel]) + "个");
+            ovipositionTips("产卵成功");
+        }
+    </script>
+    <p id="ovipositionTips"></p>
+    <script>
+        function ovipositionTips(tips) {
+            var ovipositionTips = document.getElementById('ovipositionTips');
+            ovipositionTips.textContent = tips;
+            setTimeout(() => {
+                ovipositionTips.textContent = "";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
