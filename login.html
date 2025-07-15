@@ -139,14 +139,15 @@
                 });
                 
                 if (!response.ok) {
-                    showMessage('注册失败', 'error');
+                    const errorData = await response.json();
+                    showMessage(`注册失败: ${errorData.message || '服务器错误'}`, 'error');
                     return;
                 }
                 
                 showMessage('注册成功！请登录', 'success');
                 document.getElementById('loginTab').click();
             } catch (error) {
-                showMessage('注册失败，请检查网络', 'error');
+                showMessage(`注册失败: ${error.message || '网络错误'}`, 'error');
             }
         }
     </script>
