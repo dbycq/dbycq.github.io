@@ -1,0 +1,336 @@
+{
+  "ants": {
+    "0": {
+      "普通": {
+        "type": "兵蚁",
+        "level": "普通",
+        "health": 100,
+        "attack": 375,
+        "armor": 1,
+        "XP": 1,
+        "image": "images/ant's images/Soldier_Ant_29.webp"
+      },
+      "罕见": {
+        "type": "兵蚁",
+        "level": "罕见",
+        "health": 375,
+        "attack": 30,
+        "armor": 2,
+        "XP": 2,
+        "image": "iamges/ant's images/Soldier_Ant_29（罕见）.webp"
+      },
+      "稀有": {
+        "type": "兵蚁",
+        "level": "稀有",
+        "health": 1350,
+        "attack": 90,
+        "armor": 7,
+        "XP": 3,
+        "image": "images/ant's images/Soldier_Ant_29（稀有）.webp"
+      },
+      "史诗": {
+        "type": "兵蚁",
+        "level": "史诗",
+        "health": 5400,
+        "attack": 270,
+        "armor": 22,
+        "XP": 19,
+        "image": "images/ant's images/Soldier_Ant_29（史诗）.webp"
+      },
+      "传奇": {
+        "type": "兵蚁",
+        "level": "传奇",
+        "health": 40500,
+        "attack": 810,
+        "armor": 65,
+        "XP": 174,
+        "image": "images/ant's images/Solider_Ant_29（传奇）.webp"
+      },
+      "神话": {
+        "type": "兵蚁",
+        "level": "神话",
+        "health": 243000,
+        "attack": 2430,
+        "armor": 194,
+        "XP": 2600,
+        "image": "images/ant's images/Solider_Ant_29（神话）.webp"
+      },
+      "究极": {
+        "type": "兵蚁",
+        "level": "究极",
+        "health": 2916000,
+        "attack": 7290,
+        "armor": 583,
+        "XP": 16000,
+        "image": "images/ant's images/Solider_Ant_29（究极）.webp"
+      },
+      "超级": {
+        "type": "兵蚁",
+        "level": "超级",
+        "health": 131220000,
+        "attack": 21870,
+        "armor": 583,
+        "XP": 1700000,
+        "image": "images/ant's images/Solider_Ant_29（超级）.webp"
+      },
+      "唯一": {
+        "type": "兵蚁",
+        "level": "唯一",
+        "health": 1968300000,
+        "attack": 65610,
+        "armor": 583,
+        "XP": 17000000,
+        "image": "images/ant's images/Solider_Ant_29（唯一）.webp"
+      }
+    },
+    "1": {
+      "普通": {
+        "type": "工蚁",
+        "level": "普通",
+        "health": 62.5,
+        "attack": 10,
+        "armor": 1,
+        "XP": 1,
+        "image": "images/ant's iamges/Worker_Ant_29.webp"
+      },
+      "罕见": {
+        "type": "工蚁",
+        "level": "罕见",
+        "health": 234.4,
+        "attack": 30,
+        "armor": 2,
+        "XP": 2,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/e/ea/Worker_Ant_%28Unusual%29.png/revision/latest?cb=20220906021752"
+      },
+      "稀有": {
+        "type": "工蚁",
+        "level": "稀有",
+        "health": 843.8,
+        "attack": 90,
+        "armor": 7,
+        "XP": 3,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/0/0f/Worker_Ant_%28Rare%29.png/revision/latest?cb=20220906021754"
+      },
+      "史诗": {
+        "type": "工蚁",
+        "level": "史诗",
+        "health": 3375,
+        "attack": 270,
+        "armor": 22,
+        "XP": 19,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/1/18/Worker_Ant_%28Epic%29.png/revision/latest?cb=20220906021756"
+      },
+      "传奇": {
+        "type": "工蚁",
+        "level": "传奇",
+        "health": 20250,
+        "attack": 810,
+        "armor": 65,
+        "XP": 174,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/f/f0/Worker_Ant_%28Legendary%29.png/revision/latest?cb=20220906021758"
+      },
+      "神话": {
+        "type": "工蚁",
+        "level": "神话",
+        "health": 151875,
+        "attack": 2430,
+        "armor": 194,
+        "XP": 2600,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/0/0e/Worker_Ant_%28Mythic%29.png/revision/latest?cb=20220906021800"
+      },
+      "究极": {
+        "type": "工蚁",
+        "level": "究极",
+        "health": 1822500,
+        "attack": 7290,
+        "armor": 583,
+        "XP": 16000,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/b/b8/Worker_Ant_%28Ultra%29.png/revision/latest?cb=20240702045732"
+      },
+      "超级": {
+        "type": "工蚁",
+        "level": "超级",
+        "health": 82012496,
+        "attack": 21870,
+        "armor": 583,
+        "XP": 1700000,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/1/1b/Worker_Ant_%28Super%29.png/revision/latest?cb=20240702045732"
+      },
+      "唯一": {
+        "type": "工蚁",
+        "level": "唯一",
+        "health": 1230187500,
+        "attack": 65610,
+        "armor": 583,
+        "XP": 17000000,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/d/d6/Worker_Ant_%28Unique%29.png/revision/latest?cb=20250119124807"
+      }
+    },
+    "2": {
+      "普通": {
+        "type": "幼蚁",
+        "level": "普通",
+        "health": 25,
+        "attack": 10,
+        "armor": 1,
+        "XP": 1,
+        "image": "images/ant's images/Baby_Ant_29.webp"
+      },
+      "罕见": {
+        "type": "幼蚁",
+        "level": "罕见",
+        "health": 93.8,
+        "attack": 30,
+        "armor": 2,
+        "XP": 2,
+        "image": "images/ant's images/Baby_Ant_29（罕见）.webp"
+      },
+      "稀有": {
+        "type": "幼蚁",
+        "level": "稀有",
+        "health": 337.5,
+        "attack": 90,
+        "armor": 22,
+        "XP": 65,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/5/51/Baby_Ant_%28Rare%29.png/revision/latest?cb=20220906021740"
+      },
+      "史诗": {
+        "type": "幼蚁",
+        "level": "史诗",
+        "health": 3375,
+        "attack": 270,
+        "armor": 22,
+        "XP": 56,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/4/43/Baby_Ant_%28Epic%29.png/reviion/latest?cb=20220906021742"
+      },
+      "传奇": {
+        "type": "幼蚁",
+        "level": "传奇",
+        "health": 10125,
+        "attack": 810,
+        "armor": 65,
+        "XP": 518,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/1/1a/Baby_Ant_%28Legendary%29.png/revision/latest?cb=20220906021744"
+      },
+      "神话": {
+        "type": "幼蚁",
+        "level": "神话",
+        "health": 60750,
+        "attack": 2430,
+        "armor": 194,
+        "XP": 7280,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/3/39/Baby_Ant_%28Mythic%29.png/revision/latest?cb=20220906021746"
+      },
+      "究极": {
+        "type": "幼蚁",
+        "level": "究极",
+        "health": 729000,
+        "attack": 7290,
+        "armor": 583,
+        "XP": 56164,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/f/f8/Baby_Ant_%28Ultra%29.png/revision/latest?cb=20240702045733"
+      },
+      "超级": {
+        "type": "幼蚁",
+        "level": "超级",
+        "health": 32805000,
+        "attack": 21870,
+        "armor": 583,
+        "XP": 6226562,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/0/06/Baby_Ant_%28Super%29.png/revision/latest?cb=20240702045733"
+      },
+      "唯一": {
+        "type": "幼蚁",
+        "level": "唯一",
+        "health": 492075000,
+        "attack": 65610,
+        "armor": 583,
+        "XP": 62265620,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/6/6e/Baby_Ant_%28Unique%29.png/revision/latest?cb=20250119122529"
+      }
+    },
+    "3": {
+      "普通": {
+        "type": "蚁后",
+        "level": "普通",
+        "health": 250,
+        "attack": 10,
+        "armor": 0.8,
+        "XP": 1,
+        "image": "images/ant's images/Queen_Ant_29.webp"
+      },
+      "罕见": {
+        "type": "蚁后",
+        "level": "罕见",
+        "health": 937.5,
+        "attack": 30,
+        "armor": 2.4,
+        "XP": 1,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/b/b3/Queen_Ant_%28Unusual%29.png/revision/latest?cb=20220906021820"
+      },
+      "稀有": {
+        "type": "蚁后",
+        "level": "稀有",
+        "health": 3375,
+        "attack": 90,
+        "armor": 7.2,
+        "XP": 4,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/2/2a/Queen_Ant_%28Rare%29.png/revision/latest?cb=20220906021822"
+      },
+      "史诗": {
+        "type": "蚁后",
+        "level": "史诗",
+        "health": 13500,
+        "attack": 270,
+        "armor": 21.6,
+        "XP": 31,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/3/30/Queen_Ant_%28Epic%29.png/revision/latest?cb=20220906021824"
+      },
+      "传奇": {
+        "type": "蚁后",
+        "level": "传奇",
+        "health": 101250,
+        "attack": 810,
+        "armor": 64.8,
+        "XP": 286,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/f/fd/Queen_Ant_%28Legendary%29.png/revision/latest?cb=20220906021826"
+      },
+      "神话": {
+        "type": "蚁后",
+        "level": "神话",
+        "health": 607500,
+        "attack": 2430,
+        "armor": 194.4,
+        "XP": 4400,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/9/9e/Queen_Ant_%28Mythic%29.png/revision/latest?cb=20220906021828"
+      },
+      "究极": {
+        "type": "蚁后",
+        "level": "究极",
+        "health": 7290000,
+        "attack": 7290,
+        "armor": 583.2,
+        "XP": 61400,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/a/a3/Queen_Ant_%28Ultra%29.png/revision/latest?cb=20240630130555"
+      },
+      "超级": {
+        "type": "蚁后",
+        "level": "超级",
+        "health": 328050000,
+        "attack": 21870,
+        "armor": 583.2,
+        "XP": 62265620,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/0/06/Queen_Ant_%28Super%29.png/revision/latest?cb=20240702045733"
+      },
+      "唯一": {
+        "type": "蚁后",
+        "level": "唯一",
+        "health": 4920750000,
+        "attack": 65610,
+        "armor": 583.2,
+        "XP": 62265620,
+        "image": "https://static.wikia.nocookie.net/official-florrio/images/6/6e/Queen_Ant_%28Unique%29.png/revision/latest?cb=20250119122529"
+      }
+    }
+  }
+}
