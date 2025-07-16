@@ -138,16 +138,27 @@
                     body: JSON.stringify({ username, password })
                 });
                 
+                const contentType = response.headers.get('content-type');
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    showMessage(`注册失败: ${errorData.message || '服务器错误'}`, 'error');
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = await response.json();
+                        showMessage(`注册失败: ${errorData.message || '服务器错误'}`, 'error');
+                    } else {
+                        const text = await response.text();
+                        showMessage(`注册失败: 服务器返回无效响应 (${response.status})`, 'error');
+                        console.error('Invalid server response:', text);
+                    }
                     return;
                 }
                 
                 showMessage('注册成功！请登录', 'success');
                 document.getElementById('loginTab').click();
             } catch (error) {
-                showMessage(`注册失败: ${error.message || '网络错误'}`, 'error');
+                if (error.message.includes('Failed to fetch')) {
+                    showMessage('注册失败: 无法连接到服务器，请检查网络连接', 'error');
+                } else {
+                    showMessage(`注册失败: ${error.message || '未知错误'}`, 'error');
+                }
             }
         }
     </script>
