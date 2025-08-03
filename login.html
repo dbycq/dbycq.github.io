@@ -98,21 +98,10 @@
         
         async function loginUser(username, password) {
             try {
-                const response = await fetch('https://dbycq.github.io/api/' + username, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (!response.ok) {
-                    showMessage('用户名或密码错误', 'error');
-                    return;
-                }
-                
-                const user = await response.json();
-                
-                if (user.password !== password) {
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                const user = users[username];
+
+                if (!user || user.password !== password) {
                     showMessage('用户名或密码错误', 'error');
                     return;
                 }
@@ -124,41 +113,27 @@
                     window.location.href = 'main.html';
                 }, 1000);
             } catch (error) {
-                showMessage('登录失败，请检查网络', 'error');
+                showMessage('登录失败: ' + error.message, 'error');
             }
         }
 
         async function registerUser(username, password) {
             try {
-                const response = await fetch('https://dbycq.github.io/api/' + username, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-                
-                const contentType = response.headers.get('content-type');
-                if (!response.ok) {
-                    if (contentType && contentType.includes('application/json')) {
-                        const errorData = await response.json();
-                        showMessage(`注册失败: ${errorData.message || '服务器错误'}`, 'error');
-                    } else {
-                        const text = await response.text();
-                        showMessage(`注册失败: 服务器返回无效响应 (${response.status})`, 'error');
-                        console.error('Invalid server response:', text);
-                    }
+                // 从本地存储获取现有用户
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+
+                // 检查用户名是否已存在
+                if (users[username]) {
+                    showMessage('用户名已存在', 'error');
                     return;
                 }
-                
+
+                // 保存新用户到本地存储
+                users[username] = { password };
+                localStorage.setItem('users', JSON.stringify(users));
                 showMessage('注册成功！请登录', 'success');
-                document.getElementById('loginTab').click();
             } catch (error) {
-                if (error.message.includes('Failed to fetch')) {
-                    showMessage('注册失败: 无法连接到服务器，请检查网络连接', 'error');
-                } else {
-                    showMessage(`注册失败: ${error.message || '未知错误'}`, 'error');
-                }
+                showMessage('注册失败: ' + error.message, 'error');
             }
         }
     </script>
