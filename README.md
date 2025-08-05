@@ -48,7 +48,7 @@ dbycq.github.io/
 
 ## 如何运行
 ### 网站运行
-1. 访问 [dbycq.github.io](dbycq.github.io)
+1. 访问 [dbycq.github.io](https://dbycq.github.io)
 
 若无法访问，请尝试本地运行
 ### 本地运行
@@ -57,7 +57,7 @@ dbycq.github.io/
    ```cmd
    python -m http.server 8000
    ```
-3. 打开浏览器，访问 [localhost:8000](localhost:8000)
+3. 打开浏览器，访问 [localhost:8000](http://localhost:8000)
 
 ## 价格系统
 - 基础价格：根据蚂蚁类型和等级计算
