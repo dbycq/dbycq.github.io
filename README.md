@@ -48,16 +48,16 @@ dbycq.github.io/
 
 ## 如何运行
 ### 网站运行
-1. 访问 <dbycq.github.io>
+1. 访问 [dbycq.github.io](dbycq.github.io)
 
 若无法访问，请尝试本地运行
 ### 本地运行
 1. 克隆或下载项目到本地
 2. 使用Cmd服务器运行（需要安装Python）：
-   ```
+   ```cmd
    python -m http.server 8000
    ```
-3. 打开浏览器，访问 <localhost:8000>
+3. 打开浏览器，访问 [localhost:8000](localhost:8000)
 
 ## 价格系统
 - 基础价格：根据蚂蚁类型和等级计算
@@ -72,7 +72,7 @@ dbycq.github.io/
 - 本地存储(localStorage)用于数据持久化
 
 ## 开发者信息
-- 作者：'__maqiyue'
+- 作者：__maqiyue
 - 版本：1.2.1
 - 发布日期：2025年
 - 联系邮箱：florr_dbycq@163.com
