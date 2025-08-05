@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>蚂蚁商店 - 大兵蚁传奇</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/main/shop.css">
+    <link rel="stylesheet" href="css/return.css">
+    <link rel="stylesheet" href="css/interlinkage.css">
+</head>
+<body>
+    <div class="shop-container">
+        <h1 class="shop-title">蚂蚁商店</h1>
+        <p class="update-info">价格每日0点更新</p>
+        <div class="shop-content">
+            <div id="showAntCoin"></div>
+            <div class="ant-list" id="antList">
+                <!-- 蚂蚁列表将通过JavaScript动态生成 -->
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+        <div class="shop-back-container">
+            <button class="return-button" onclick="window.location.href='main.html'">返回主页面</button>
+        </div>
+    </div>
+    <script>
+        showAntCoin();
+        // 显示蚂蚁金币
+        function showAntCoin() {
+            const antCoin = localStorage.getItem('antCoin');
+            if (antCoin) {
+                document.getElementById('showAntCoin').textContent = '蚂蚁金币: ' + antCoin;
+            } else {
+                document.getElementById('showAntCoin').textContent = '蚂蚁金币: 0';
+            }
+        }
+        // 蚂蚁数据和价格生成逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查是否需要更新价格
+            updateAntPrices();
+            // 显示蚂蚁列表
+            displayAntList();
+        });
+
+        // 更新蚂蚁价格
+        function updateAntPrices() {
+            // 获取当前日期
+            const today = new Date();
+            const todayStr = today.toDateString();
+
+            // 从localStorage获取最后更新日期
+            const lastUpdateDate = localStorage.getItem('lastUpdateDate');
+
+            // 如果今天没有更新过价格，则更新
+            if (lastUpdateDate !== todayStr) {
+                // 从ants_data.json加载蚂蚁数据
+                fetch('ants_data.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('网络响应错误: ' + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 为每种蚂蚁生成随机价格
+                        const antPrices = {};
+
+                        // 修正：数据结构是 data.ants[数字索引][等级]
+                        if (data.ants) {
+                            // 遍历所有蚂蚁索引
+                            for (const antIndex in data.ants) {
+                                if (data.ants.hasOwnProperty(antIndex)) {
+                                    const antTypeData = data.ants[antIndex];
+                                    // 遍历所有等级
+                                    for (const level in antTypeData) {
+                                        if (antTypeData.hasOwnProperty(level)) {
+                                            const ant = antTypeData[level];
+                                            const antType = ant.type;
+                                            
+                                            if (!antPrices[antType]) {
+                                                antPrices[antType] = {};
+                                            }
+                                            
+                                            // 基础价格根据蚂蚁类型和等级计算
+                                            // 10幼蚁=5工蚁=2兵蚁=1蚁后的比例关系
+                                            const typeBasePrices = {
+                                                '幼蚁': 10,
+                                                '工蚁': 40,
+                                                '兵蚁': 50,
+                                                '蚁后': 100
+                                            };
+                                            // 由于等级是字符串，我们使用一个映射来转换为数值
+                                            // 实现等级之间价格差接近5倍的指数增长
+                                            const levelValues = {
+                                                '普通': 1,
+                                                '罕见': 5,
+                                                '稀有': 25,
+                                                '史诗': 125,
+                                                '传奇': 625,
+                                                '神话': 3125,
+                                                '究极': 15625,
+                                                '超级': 78125,
+                                                '唯一': 390625
+                                            };
+                                            const levelValue = levelValues[level] || 1;
+                                            const basePrice = typeBasePrices[antType] * levelValue;
+                                            // 随机波动±30%
+                                            const randomFactor = 0.7 + Math.random() * 0.6;
+                                            const price = Math.round(basePrice * randomFactor);
+                                            antPrices[antType][level] = price;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // 保存价格和更新日期
+                        localStorage.setItem('antPrices', JSON.stringify(antPrices));
+                        localStorage.setItem('lastUpdateDate', todayStr);
+                    })
+                    .catch(error => {
+                        console.error('加载蚂蚁数据失败:', error);
+                        document.getElementById('antList').innerHTML = '<div class="error">加载蚂蚁数据失败: ' + error.message + '</div>';
+                    });
+            }
+        }
+
+        // 显示蚂蚁列表
+        function displayAntList() {
+            // 从localStorage获取蚂蚁价格
+            const antPrices = JSON.parse(localStorage.getItem('antPrices'));
+
+            if (!antPrices) {
+                // 如果没有价格数据，等待更新完成后再显示
+                setTimeout(displayAntList, 500);
+                return;
+            }
+
+            // 从ants_data.json加载蚂蚁数据
+            fetch('ants_data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应错误: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const antListElement = document.getElementById('antList');
+                    antListElement.innerHTML = '';
+
+                    // 修正：数据结构是 data.ants[数字索引][等级]
+                    if (data.ants) {
+                        // 用于按类型分组蚂蚁
+                        const antsByType = {};
+
+                        // 遍历所有蚂蚁索引
+                        for (const antIndex in data.ants) {
+                            if (data.ants.hasOwnProperty(antIndex)) {
+                                const antTypeData = data.ants[antIndex];
+                                // 遍历所有等级
+                                for (const level in antTypeData) {
+                                    if (antTypeData.hasOwnProperty(level)) {
+                                        const ant = antTypeData[level];
+                                        const antType = ant.type;
+
+                                        if (!antsByType[antType]) {
+                                            antsByType[antType] = {};
+                                        }
+                                        antsByType[antType][level] = ant;
+                                    }
+                                }
+                            }
+                        }
+
+                        // 遍历所有蚂蚁类型
+                        for (const antType in antsByType) {
+                            if (antsByType.hasOwnProperty(antType)) {
+                                const antTypeElement = document.createElement('div');
+                                antTypeElement.className = 'ant-type';
+                                antTypeElement.innerHTML = `<h2>${getAntTypeName(antType)}</h2>`;
+                                antListElement.appendChild(antTypeElement);
+
+                                const antItemsElement = document.createElement('div');
+                                antItemsElement.className = 'ant-items';
+                                antTypeElement.appendChild(antItemsElement);
+
+                                // 遍历所有等级
+                                for (const level in antsByType[antType]) {
+                                    if (antsByType[antType].hasOwnProperty(level)) {
+                                        const ant = antsByType[antType][level];
+                                        const price = antPrices[antType] && antPrices[antType][level] ? antPrices[antType][level] : 0;
+
+                                        const antItemElement = document.createElement('div');
+                                        antItemElement.className = 'ant-item';
+
+                                        // 蚂蚁图片 - 修正路径中的拼写错误
+                                        let imageUrl = ant.image;
+                                        if (imageUrl) {
+                                            // 修正常见拼写错误
+                                            imageUrl = imageUrl.replace('iamges', 'images');
+                                            imageUrl = imageUrl.replace('Solider_Ant', 'Soldier_Ant');
+                                        } else {
+                                            imageUrl = 'images/ant\'s images/none.png';
+                                        }
+
+                                        antItemElement.innerHTML = `
+                                            <div class="ant-image-container">
+                                                <img src="${imageUrl}" alt="${getAntTypeName(antType)} ${level}" class="ant-image" onerror="this.src='images/ant\'s images/none.png'">
+                                            </div>
+                                            <div class="ant-info">
+                                                <h3>${getAntTypeName(antType)} ${level}</h3>
+                                                <p class="ant-price">价格: ${price} 蚁币</p>
+                                                <button class="buy-button" onclick="buyAnt('${antType}', '${level}')">购买</button>
+                                            </div>
+                                        `;
+                                        antItemsElement.appendChild(antItemElement);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('加载蚂蚁数据失败:', error);
+                    document.getElementById('antList').innerHTML = '<div class="error">加载蚂蚁数据失败: ' + error.message + '</div>';
+                });
+        }
+
+        // 获取蚂蚁类型名称
+        function getAntTypeName(type) {
+            const typeMap = {
+                '兵蚁': '兵蚁',
+                '工蚁': '工蚁',
+                '幼蚁': '幼蚁',
+                '蚁后': '蚁后'
+            };
+            return typeMap[type] || type;
+        }
+
+        // 购买蚂蚁
+        function buyAnt(antType, level) {
+            // 获取蚂蚁价格
+            const antPrices = JSON.parse(localStorage.getItem('antPrices'));
+            const price = antPrices[antType][level];
+
+            // 获取用户数据
+            let userData = JSON.parse(localStorage.getItem('userData')) || {
+                coins: 0,
+                ants: {}
+            };
+
+            // 检查余额是否足够
+            if (userData.coins >= price) {
+                // 扣除蚁币
+                userData.coins -= price;
+
+                // 添加蚂蚁到用户拥有的蚂蚁列表
+                if (!userData.ants[antType]) {
+                    userData.ants[antType] = {};
+                }
+                if (!userData.ants[antType][level]) {
+                    userData.ants[antType][level] = 0;
+                }
+                userData.ants[antType][level]++;
+
+                // 保存更新后的用户数据
+                localStorage.setItem('userData', JSON.stringify(userData));
+
+                // 显示购买成功消息
+                alert(`购买 ${getAntTypeName(antType)} ${level} 成功！花费 ${price} 蚁币`);
+            } else {
+                // 显示余额不足消息
+                alert(`蚁币不足，需要 ${price} 蚁币`);
+            }
+        }
+    </script>
+</body>
+</html>
