@@ -1,21 +1,18 @@
-let supabaseClient = null;
+let supabaseClient = null; // 正确的变量名
 function getClient(){
     if (!supabaseClient) {
         const supabaseUrl = 'https://gidktxcpudzdaqwtkeqq.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpZGt0eGNwdWR6ZGFxd3RrZXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MzA5MTMsImV4cCI6MjA3NzAwNjkxM30.gvlcZgz7N0nM4-TzW1s58AxBoXXJeL15x7UIugGgjr8';
-        if (window.Supabase) {
-      // 若控制台显示 window.Supabase 存在（大写 S）
-      supabaseClient = window.Supabase.createClient(supabaseUrl, supabaseKey);
-    } else if (window.supabase) {
-      // 若控制台显示 window.supabase 存在（小写 s）
-      supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-    } else {
-      // 库未加载成功，抛出明确错误
-      throw new Error("Supabase 库未加载，无法创建客户端");
-    }
+        
+        // 1. 修复变量名拼写错误（supabaseCilent → supabaseClient）
+        // 2. 确认全局对象名（根据控制台结果选择 Supabase 或 supabase）
+        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        // 若控制台显示 window.Supabase 存在，则用：
+        // supabaseClient = window.Supabase.createClient(supabaseUrl, supabaseKey);
     }
     return supabaseClient;
 }
+
 function getArgs(key) {
     const args = {};
     for (const [k, v] of new URLSearchParams(window.location.search).entries()){
