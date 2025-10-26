@@ -8,7 +8,7 @@ function getClient(){
     return supabaseClient;
 }
 function getArgs(key) {
-    cosnt args = {};
+    const args = {};
     for (const [k, v] of new URLSearchParams(window.location.search).entries()){
         args[k] = v;
     }
