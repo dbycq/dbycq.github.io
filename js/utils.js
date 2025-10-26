@@ -16,8 +16,10 @@ function getArgs(key) {
 }
 document.addEventListener('DOMContentLoaded', function() {
     const currentPath = window.location.pathname;
-    let scriptPath = currentPath.replace(/\.html$/, '.js');
-    if (!scriptPath.endsWith(".js")) scriptPath += ".js";
+    // 提取文件名（如从 "/wiki.html" 中获取 "wiki"）
+    const fileName = currentPath.replace(/\.html$/, '').split('/').pop();
+    // 生成 js 文件夹下的路径（如 "js/wiki.js"）
+    let scriptPath = `js/${fileName}.js`;
     const script = document.createElement('script');
     script.src = scriptPath;
     document.head.appendChild(script);
