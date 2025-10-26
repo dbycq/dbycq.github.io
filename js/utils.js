@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 生成 js 文件夹下的路径（如 "js/wiki.js"）
     let scriptPath = `js/${fileName}.js`;
     const script = document.createElement('script');
+    console.log(scriptPath);
     script.src = scriptPath;
     document.head.appendChild(script);
 });
