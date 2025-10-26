@@ -3,18 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Wiki List</title>
-    <!-- 1. 替换为jsDelivr（国内可访问，版本确认存在） -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" as="style">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-
-    <!-- Supabase（使用最新稳定版，确认存在） -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
-    <!-- Markdown-it（使用13.x版本，BootCDN和jsDelivr均存在） -->
+    <!-- 1. markdown-it（必须先加载） -->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
-
-    <!-- 数学公式库（延迟加载） -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/markdown-it-texmath@1.0.0/dist/texmath.min.js"></script>
+    <!-- 2. katex（数学公式引擎） -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <!-- 3. markdown-it-texmath（markdown-it的公式插件，依赖前两个库） -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.9.6/dist/texmath.min.js"></script>
 </head>
 <body>
     <h1 id="wiki_name">Loading...</h1>
