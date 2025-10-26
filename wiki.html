@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Wiki List</title>
-    <!-- 1. markdown-it（必须先加载） -->
+    <!-- 1. 样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    
+    <!-- 2. 核心依赖库（顺序：markdown-it → katex → texmath） -->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
-    <!-- 2. katex（数学公式引擎） -->
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <!-- 3. markdown-it-texmath（markdown-it的公式插件，依赖前两个库） -->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.9.6/dist/texmath.min.js"></script>
+    
+    <!-- 3. 工具函数（如果utils.js也依赖库，同样放在前面） -->
+    <script src="js/utils.js" defer></script>
+    
+    <!-- 4. 最后加载wiki.js，确保依赖已就绪 -->
+    <script src="js/wiki.js" defer></script>
 </head>
 <body>
     <h1 id="wiki_name">Loading...</h1>
@@ -19,7 +26,5 @@
         <div>加载中，请稍候...</div>
         <div style="margin-top: 10px; font-size: 12px; color: #666;">若长时间未加载，请刷新页面重试</div>
     </div>
-
-    <script src="js/utils.js" defer></script>
 </body>
 </html>
