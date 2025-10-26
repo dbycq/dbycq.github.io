@@ -19,14 +19,15 @@ if (!window.markdownit) {
 
   async function render() {
     // 3. 修复 DOM 元素获取：containerEl 对应 wiki_container
+    
     const supabase = getClient();
+    const problemNameEl = document.getElementById('wiki_name');
+    const optionsEl = document.getElementById('options');
+    const containerEl = document.getElementById('wiki_container'); // 修正ID
     if (!supabase) {
     containerEl.innerHTML = '<p style="color: #dc3545;">数据库连接失败，请检查配置</p>';
     return;
   }
-    const problemNameEl = document.getElementById('wiki_name');
-    const optionsEl = document.getElementById('options');
-    const containerEl = document.getElementById('wiki_container'); // 修正ID
     const id = getArgs('id');
 
     if (id) {
