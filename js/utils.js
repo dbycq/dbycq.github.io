@@ -2,13 +2,8 @@ let supabaseClient = null; // 正确的变量名
 function getClient(){
     if (!supabaseClient) {
         const supabaseUrl = 'https://gidktxcpudzdaqwtkeqq.supabase.co';
-        const supabaseKey  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpZGt0eGNwdWR6ZGFxd3RrZXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MzA5MTMsImV4cCI6MjA3NzAwNjkxM30.gvlcZgz7N0nM4-TzW1s58AxBoXXJeL15x7UIugGgjr8';
-        
-        // 1. 修复变量名拼写错误（supabaseCilent → supabaseClient）
-        // 2. 确认全局对象名（根据控制台结果选择 Supabase 或 supabase）
-        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-        // 若控制台显示 window.Supabase 存在，则用：
-        // supabaseClient = window.Supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpZGt0eGNwdWR6ZGFxd3RrZXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MzA5MTMsImV4cCI6MjA3NzAwNjkxM30.gvlcZgz7N0nM4-TzW1s58AxBoXXJeL15x7UIugGgjr8';
+        supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
     }
     return supabaseClient;
 }
