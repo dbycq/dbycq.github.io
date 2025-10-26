@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Wiki List</title>
-    <!-- 1. 样式文件 -->
+    <!-- 1. 先加载 katex 样式（不影响执行顺序） -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    
-    <!-- 2. 核心依赖库（顺序：markdown-it → katex → texmath） -->
+
+    <!-- 2. 同步加载核心库（不添加 defer/async，确保按顺序执行） -->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.9.6/dist/texmath.min.js"></script>
-    
-    <!-- 3. 工具函数（如果utils.js也依赖库，同样放在前面） -->
-    <script src="js/utils.js" defer></script>
-    
-    <!-- 4. 最后加载wiki.js，确保依赖已就绪 -->
-    <script src="js/wiki.js" defer></script>
+
+    <!-- 3. 最后同步加载 wiki.js（确保依赖已加载） -->
+    <script src="js/wiki.js"></script>
+
+    <!-- 4. utils.js 若不依赖上述库，可放后面；若依赖，也需放三个库之后 -->
+    <script src="js/utils.js"></script>
 </head>
 <body>
     <h1 id="wiki_name">Loading...</h1>
