@@ -2,7 +2,7 @@ let supabaseClient = null;
 function getClient(){
     if (!supabaseClient) {
         const supabaseUrl = 'https://gidktxcpudzdaqwtkeqq.supabase.co';
-        const supabaseKey = 'MAzju123';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpZGt0eGNwdWR6ZGFxd3RrZXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MzA5MTMsImV4cCI6MjA3NzAwNjkxM30.gvlcZgz7N0nM4-TzW1s58AxBoXXJeL15x7UIugGgjr8';
         supabaseCilent = supabase.createClient(supabaseUrl, supabaseKey);
     }
     return supabaseClient;
