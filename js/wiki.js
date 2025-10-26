@@ -1,3 +1,7 @@
+if (!window.markdownit || !window.katex || !window.texmath) {
+  console.error("依赖库未加载");
+  return;
+}
 const md = window.markdownit();
 md.use(window.texmath.use(window.katex), {
   engine: window.katex,
