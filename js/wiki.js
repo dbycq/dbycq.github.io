@@ -2,7 +2,7 @@ console.log("window.markdownit:", window.markdownit);
 console.log("window.katex:", window.katex);
 console.log("window.texmath:", window.texmath);
 // 1. 修复依赖检查逻辑，直接判断并处理
-if (!window.markdownit || !window.katex || !window.texmath) {
+if (!window.markdownit  || !window.texmath) {
   console.error("依赖库未加载：缺少 markdown-it、katex 或 markdown-it-texmath");
   // 依赖缺失时，在页面显示提示
   const containerEl = document.getElementById('wiki_container');
@@ -13,7 +13,6 @@ if (!window.markdownit || !window.katex || !window.texmath) {
   // 2. 修复 texmath 调用方式，移除多余的 .use(window.katex)
   const md = window.markdownit();
   md.use(window.texmath, {
-    engine: window.katex,
     delimiters: 'dollars',
     katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
   });
