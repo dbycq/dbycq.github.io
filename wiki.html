@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Wiki List</title>
+    <!-- 先加载 markdown-it -->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <!-- 然后加载 KaTeX -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <!-- 最后加载依赖前两者的 markdown-it-texmath -->
+    <script src="您的texmath路径/texmath.min.js"></script>
     <script src="js/wiki.js"></script>
     <script src="js/utils.js"></script>
 </head>
