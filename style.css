@@ -1,0 +1,33 @@
+@font-face{
+    font-family: "Ubuntu-B";
+    src: url("font/Ubuntu-B.ttf");
+}
+
+body{
+    font-family: "Ubuntu-B";
+    margin: 0;
+    padding: 0;
+}
+
+
+.title{
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.title::after{
+    content: "🐜";
+    font-size: 32px;
+    display: inline-block;
+    transform-origin: center;
+    animation: ants_move 1s linear infinite;
+}
+
+@keyframes ants_move{
+    0%{transform: rotate(0deg);}
+    25%{transform: rotate(45deg);}
+    50%{transform: rotate(0deg);}
+    75%{transform: rotate(-45deg);}
+    100%{transform: rotate(0deg);}
+}
